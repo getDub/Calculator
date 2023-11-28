@@ -3,6 +3,10 @@ let numbers2 = [ 5, 2 ];
 let numbers3 = [ 15, 32 ];
 let numbers4 = [ 5, 4, 3, 2, 1 ];
 
+//Parts of the calculator operation
+let firstNumber;
+let operator;
+let secondNumber;
 
 //Add function
 const add = function ( arr ) {

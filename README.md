@@ -1,4 +1,4 @@
-#### Project # Calculator
+# Project: Calculator
 
 #### Assignment
 

@@ -1,7 +1,5 @@
-let numbers = [ 1, 2, 3, 4, 5 ];
-let numbers2 = [ 5, 2 ];
-let numbers3 = [ 15, 32 ];
-let numbers4 = [ 5, 4, 3, 2, 1 ];
+// Project: Calculator
+
 
 //Parts of the calculator operation
 let firstNumber;
@@ -9,29 +7,44 @@ let operator;
 let secondNumber;
 
 //Add function
-const add = function ( arr ) {
-    return arr.reduce((total, number) => total + number,0);
+const add = function ( a, b ) {
+    return a + b;
 }
-
-console.log( add( numbers4 ) );
 
 //Subtract function
-const subtract = function ( arr ) {
-    return arr.reduce((total, currentNo) => total - currentNo);
+const subtract = function ( a, b ) {
+    return a - b;
 }
-
-console.log( subtract( numbers4 ) );
 
 //Multiply function 
-const multiply = function ( arr ) {
-    return arr.reduce((total, currentNo) => total * currentNo, 1);
+const multiply = function ( a, b ) {
+    return a * b;
 }
-
-console.log( multiply( numbers4 ) );
 
 //Divide function 
-const divide = function( arr ) {
-    return arr.reduce((total, currentNo) => total / currentNo);
+const divide = function( a, b ) {
+    return a / b;
 }
 
-console.log( divide( numbers4 ) );
+
+//Operate function
+const operate = function ( equation) {
+
+    let str = equation.split(" ")
+    console.log(str)
+    a = +str[0];
+    op = str[1];
+    b = +str[2];
+
+if (op === "+") return add (a,b);
+if (op === "-") return subtract( a,b); 
+if (op === "*") return multiply( a,b); 
+if (op === "/") return divide( a,b); 
+
+}
+
+console.log(operate( "166 - 555" ))
+console.log(operate( "166 + 555" ))
+console.log(operate( "166 * 555" ))
+console.log(operate( "166 / 555" ))
+

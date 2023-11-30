@@ -2,34 +2,55 @@
 
 
 const display = document.querySelector('.display');
-const operators = document.querySelectorAll('.operator');
 const nums = document.querySelectorAll('.nums');
+const operators = document.querySelectorAll('.operator');
+const clear = document.querySelector('.clear');
+
+
 
 //Add event listener to all the buttons with a class of nums.
 nums.forEach((button) => {
 
     button.addEventListener('click', () => {
-        
+        display.textContent = '';
         let input = display.textContent = button.textContent
-        firstNumber += input;
-        display.textContent = firstNumber;
+        displayValues += input;
+        display.textContent = displayValues;
           
     });
 })
 
+
+
+
 //Event listners for operator buttons
 operators.forEach((operation) => {
     operation.addEventListener('click', () => {
+
+        display.textContent = '';
         operator = display.textContent = operation.textContent;
         console.log(operator)
     })
 })
 
 
+
+clear.addEventListener('click', () => {
+     display.textContent = '';
+     firstNumber = '';
+     operator = '';
+     secondNumber = '';
+})
+
+
+
 //Parts of the calculator operation
+let displayValues = '';
 let firstNumber = '';
-let operator;
-let secondNumber;
+let operator = '';
+let secondNumber = '';
+
+
 
 //Add function
 const add = function ( a, b ) {
@@ -53,7 +74,7 @@ const divide = function( a, b ) {
 
 
 //Operate function
-const operate = function ( equation) {
+const operate = function ( equation ) {
 
     let str = equation.split(" ")
     console.log(str)

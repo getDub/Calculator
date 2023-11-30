@@ -1,6 +1,17 @@
 // Project: Calculator
 
 
+const display = document.querySelector('.display');
+const btn = document.querySelector('div.operands');
+const nums = document.querySelectorAll('.nums');
+console.log(btn.children[1].innerText)
+
+btn.addEventListener('click', (e) => {
+       display.textContent = e.target.innerText;
+    
+});
+
+
 //Parts of the calculator operation
 let firstNumber;
 let operator;

@@ -2,7 +2,7 @@
 
 
 const display = document.querySelector('.display');
-const btn = document.querySelector('div.operands');
+const operators = document.querySelectorAll('.operator');
 const nums = document.querySelectorAll('.nums');
 
 //Add event listener to all the buttons with a class of nums.
@@ -17,6 +17,13 @@ nums.forEach((button) => {
     });
 })
 
+//Event listners for operator buttons
+operators.forEach((operation) => {
+    operation.addEventListener('click', () => {
+        operator = display.textContent = operation.textContent;
+        console.log(operator)
+    })
+})
 
 
 //Parts of the calculator operation

@@ -4,16 +4,23 @@
 const display = document.querySelector('.display');
 const btn = document.querySelector('div.operands');
 const nums = document.querySelectorAll('.nums');
-console.log(btn.children[1].innerText)
 
-btn.addEventListener('click', (e) => {
-       display.textContent = e.target.innerText;
-    
-});
+//Add event listener to all the buttons with a class of nums.
+nums.forEach((button) => {
+
+    button.addEventListener('click', () => {
+        
+        let input = display.textContent = button.textContent
+        firstNumber += input;
+        display.textContent = firstNumber;
+          
+    });
+})
+
 
 
 //Parts of the calculator operation
-let firstNumber;
+let firstNumber = '';
 let operator;
 let secondNumber;
 

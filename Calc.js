@@ -1,12 +1,18 @@
 // Project: Calculator
 
-
-
-
 const display = document.querySelector('.display');
 const nums = document.querySelectorAll('.nums');
 const operators = document.querySelectorAll('.operator');
 const clear = document.querySelector('.clear');
+const equals = document.querySelector('.equals');
+
+
+//Parts of the calculator operation
+let displayValues = '';
+let a;
+let operator = '';
+let b;
+
 
 
 //Add event listener to all the buttons with a class of nums.
@@ -15,8 +21,10 @@ nums.forEach((button) => {
     button.addEventListener('click', () => {
         
         
-        let input = display.textContent = button.textContent
-        displayValues += input;
+        let input = display.textContent = button.textContent //when number button is pressed it shows that number in the '.display' div.
+        displayValues += input; //Adds number presses to the displayValues string.
+        display.textContent = displayValues;
+        
                 
     });
 })
@@ -28,14 +36,25 @@ nums.forEach((button) => {
 operators.forEach((operation) => {
     operation.addEventListener('click', () => {
         
-        console.log(operate( displayValues ));
-        operator = display.textContent = operation.textContent;
-        displayValues += operator;
-        console.log(displayValues)
+        let subTotal = operate( displayValues ); //Call function to reduce a and b to its sub total.
+        display.textContent = subTotal; // Display sub total.
+        operator  = operation.textContent; // Registers operator from elements text Content.
+    //    console.log(operator)
+        displayValues += operator; // Pushes operator to displayValues variable.
+        // console.log(displayValues)
         
         
     })
     
+})
+
+
+equals.addEventListener('click', () => {
+    
+    let finalTotal = operate( displayValues );
+    console.log(finalTotal);
+    displayValues += finalTotal;
+    return display.textContent = finalTotal;
 })
 
 
@@ -47,11 +66,7 @@ clear.addEventListener('click', () => {
     secondNumber = '';
 })
 
-//Parts of the calculator operation
-let displayValues = '';
-let firstNumber = '';
-let operator = '';
-let secondNumber = '';
+
 
 
 //Add function

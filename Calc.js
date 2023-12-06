@@ -14,7 +14,7 @@ let a;
 let op = '';
 let b;
 let finalTotal;
-
+let result;
 
 
 //Add event listener to all the buttons with a class of nums.
@@ -22,9 +22,9 @@ nums.forEach((button) => {
      
     button.addEventListener('click', () => {
         
-        displayValues += button.textContent; //Adds number presses to the displayValues string.
-        a = display.textContent = displayValues; //when number button is pressed it shows that number in the '.display' div.
-        // display.textContent = input;
+        displayValues += button.textContent; 
+        display.textContent = displayValues; 
+       
     });
 })
 
@@ -38,15 +38,13 @@ let operations = function () {
         
         operation.addEventListener('click', () => {
             
-            display.textContent = a;
-            console.log(a)
-            let subTotal = operate( displayValues ); //Call function to reduce a and b to its sub total.
-            display.textContent =  subTotal; // Display sub total.
-            op  = operation.textContent; // Registers operator from elements text Content.
-            displayValues += op; // Pushes operator to displayValues variable.
+            finalTotal = operate( displayValues);
+            display.textContent = finalTotal;
+            op  = operation.textContent; 
+            displayValues += op; 
             
         })
-        
+     
     })
 }
 operations();
@@ -57,10 +55,10 @@ const equalsBtn = function (){
 equals.addEventListener('click', () => {
     
     finalTotal = operate( displayValues );
-    console.log(finalTotal);
-    
-    displayValues += finalTotal;
+    // displayValues += finalTotal;
     display.textContent = finalTotal;
+
+    
     
 })
 }
@@ -80,25 +78,26 @@ clear.addEventListener('click', () => {
 //Add function
 const add = function ( [a,b] ) 
 {
-    return displayValues = [a,b].reduce((total, current) => total + current, 0)
+    return displayValues = ([a,b].reduce((total, current) => total + current, 0)).toString();
+    // return displayValues += result.toString();
 }
 
 //Subtract function
 const subtract = function ( [a,b] ) 
 {
-    return displayValues = [a,b].reduce((total, current) => total - current )
+    return displayValues = ([a,b].reduce((total, current) => total - current )).toString();
 }
 
 //Multiply function 
 const multiply = function ( [a, b] ) 
 {
-    return displayValues = [a,b].reduce((total, current) => current * total, 1 )
+    return displayValues = ([a,b].reduce((total, current) => current * total, 1 )).toString();
 }
 
 //Divide function 
 const divide = function( [a, b] ) 
 {
-    return displayValues = [a,b].reduce((total, current) => total / current)
+    return displayValues = ([a,b].reduce((total, current) => total / current)).toString();
 }
 
 
@@ -107,14 +106,11 @@ const divide = function( [a, b] )
 const operate = function ( equation ) {
 
     let str = equation.split(" ")
-    console.log(str)
+
     a = +str[0];
     op = str[1];
     b = +str[2];
-    console.log(`a ${a}`)
-    console.log(`op ${op}`)
-    console.log(`b ${b}`)
-    
+        
     if (op === "+") return add ([a,b]);
     if (op === "-") return subtract([a,b]); 
     if (op === "*") return multiply([a,b]); 

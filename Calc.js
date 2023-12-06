@@ -67,9 +67,9 @@ equalsBtn();
 
 clear.addEventListener('click', () => {
     display.textContent = '';
-    firstNumber = '';
+    displayValues = '';
     op = '';
-    secondNumber = '';
+    
 })
 
 

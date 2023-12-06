@@ -79,7 +79,6 @@ clear.addEventListener('click', () => {
 const add = function ( [a,b] ) 
 {
     return displayValues = ([a,b].reduce((total, current) => total + current, 0)).toString();
-    // return displayValues += result.toString();
 }
 
 //Subtract function

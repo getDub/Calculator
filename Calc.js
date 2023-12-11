@@ -21,13 +21,15 @@ let result;
 nums.forEach((button) => {
      
     button.addEventListener('click', () => {
+         
         
         displayValues += button.textContent; 
         display.textContent = displayValues; 
+        
+     
        
     });
 })
-
 
 
 
@@ -37,14 +39,13 @@ let operations = function () {
     operators.forEach((operation) => {
         
         operation.addEventListener('click', () => {
-            
+
+            display.textContent = displayValues;
             finalTotal = operate( displayValues);
-            display.textContent = finalTotal;
             op  = operation.textContent; 
-            displayValues += op; 
+            displayValues += operation.textContent; 
             
         })
-     
     })
 }
 operations();
@@ -55,14 +56,15 @@ const equalsBtn = function (){
 equals.addEventListener('click', () => {
     
     finalTotal = operate( displayValues );
-    // displayValues += finalTotal;
     display.textContent = finalTotal;
 
     
     
 })
 }
+
 equalsBtn();
+
 
 
 clear.addEventListener('click', () => {

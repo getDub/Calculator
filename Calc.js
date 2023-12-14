@@ -42,8 +42,19 @@ let operations = function () {
         
         operation.addEventListener('click', () => {
 
+            if( secondNum !== '') {
+                total = operate[op](firstNum, secondNum)
+                display.textContent = total;
+            }
+            
+            if (op !== '' && secondNum === '') {
+                secondNum += firstNum;
+                total = operate[op](firstNum, secondNum);
+                display.textContent = total;
+            }
+
             op = operation.textContent;
-            display.textContent = op
+            
             
         })
     })
@@ -74,6 +85,7 @@ clear.addEventListener('click', () => {
     firstNum = '';
     op = '';
     secondNum = '';
+    total = '';
     
 })
 
@@ -112,7 +124,7 @@ const operate = {
 
     "/" ( a, b ) 
     {
-        [Number(a),Number(b)].reduce((total, current) => total / current);
+        firstNum = [Number(a),Number(b)].reduce((total, current) => total / current);
         op = '';
         secondNum = '';
         return firstNum;

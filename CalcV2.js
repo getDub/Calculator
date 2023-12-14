@@ -10,9 +10,9 @@ const equals = document.querySelector('.equals');
 
 //Parts of the calculator operation
 let displayValues = '';
-let a;
+let a = '';
 let op = '';
-let b;
+let b = '';
 let finalTotal;
 let result;
 

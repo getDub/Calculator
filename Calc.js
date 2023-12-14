@@ -7,119 +7,116 @@ const clear = document.querySelector('.clear');
 const equals = document.querySelector('.equals');
 
 
-
 //Parts of the calculator operation
-let displayValues = '';
-let a;
+
+let firstNum = '';
 let op = '';
-let b;
-let finalTotal;
-let result;
+let secondNum = '';
+let total = '';
 
 
-//Add event listener to all the buttons with a class of nums.
+
+
+//Number input
 nums.forEach((button) => {
      
     button.addEventListener('click', () => {
-        
-        displayValues += button.textContent; 
-        display.textContent = displayValues; 
-       
+         
+        if ( op === '') {
+            firstNum += button.textContent;
+            display.textContent = firstNum;
+        }else {
+            secondNum += button.textContent; //I think a call to Equals should be done after second number?
+            display.textContent = secondNum; 
+        }
+             
     });
 })
 
 
 
-
-//Event listners for operator buttons
+//Operator input
 let operations = function () {
     
     operators.forEach((operation) => {
         
         operation.addEventListener('click', () => {
-            
-            finalTotal = operate( displayValues);
-            display.textContent = finalTotal;
-            op  = operation.textContent; 
-            displayValues += op; 
+
+            op = operation.textContent;
+            display.textContent = op
             
         })
-     
     })
 }
 operations();
 
 
 
+//Equals
 const equalsBtn = function (){
+
 equals.addEventListener('click', () => {
     
-    finalTotal = operate( displayValues );
-    // displayValues += finalTotal;
-    display.textContent = finalTotal;
-
-    
+     total = operate[op](firstNum, secondNum);
+     display.textContent = total;
     
 })
 }
+
 equalsBtn();
 
 
+
+//Clear
 clear.addEventListener('click', () => {
     display.textContent = '';
     displayValues = '';
+    firstNum = '';
     op = '';
+    secondNum = '';
     
 })
-
-
-
-
-//Add function
-const add = function ( [a,b] ) 
-{
-    return displayValues = ([a,b].reduce((total, current) => total + current, 0)).toString();
-}
-
-//Subtract function
-const subtract = function ( [a,b] ) 
-{
-    return displayValues = ([a,b].reduce((total, current) => total - current )).toString();
-}
-
-//Multiply function 
-const multiply = function ( [a, b] ) 
-{
-    return displayValues = ([a,b].reduce((total, current) => current * total, 1 )).toString();
-}
-
-//Divide function 
-const divide = function( [a, b] ) 
-{
-    return displayValues = ([a,b].reduce((total, current) => total / current)).toString();
-}
 
 
 
 //Operate function
-const operate = function ( equation ) {
+const operate = {
 
-    let str = equation.split(" ")
+    //loop over keys in obj and execute value for matching keys.
+//    a: firstNum,
+//    b: secondNum,
+    
+    "+" ( a,b ) 
+    {
+        firstNum = [Number(a),Number(b)].reduce((total, current) => total + current, 0);
+        op = '';
+        secondNum = '';
+        return firstNum;
+    },
 
-    a = +str[0];
-    op = str[1];
-    b = +str[2];
-        
-    if (op === "+") return add ([a,b]);
-    if (op === "-") return subtract([a,b]); 
-    if (op === "*") return multiply([a,b]); 
-    if (op === "/") return divide([a,b]); 
+    "-" ( a,b ) 
+    {
+        firstNum = [Number(a),Number(b)].reduce((total, current) => total - current );
+        op = '';
+        secondNum = '';
+        return firstNum;
+    },
+
+    "*" ( a, b ) 
+    {
+        firstNum = [Number(a),Number(b)].reduce((total, current) => current * total, 1 );
+        op = '';
+        secondNum = '';
+        return firstNum;
+    },
+
+    "/" ( a, b ) 
+    {
+        [Number(a),Number(b)].reduce((total, current) => total / current);
+        op = '';
+        secondNum = '';
+        return firstNum;
+    }
     
     
 }
-
-
-
-
-
-

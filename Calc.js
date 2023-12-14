@@ -17,7 +17,7 @@ let total = '';
 
 
 
-//Number input
+//Numbers
 nums.forEach((button) => {
      
     button.addEventListener('click', () => {
@@ -35,7 +35,7 @@ nums.forEach((button) => {
 
 
 
-//Operator input
+//Operators
 let operations = function () {
     
     operators.forEach((operation) => {
@@ -68,8 +68,15 @@ const equalsBtn = function (){
 
 equals.addEventListener('click', () => {
     
-     total = operate[op](firstNum, secondNum);
-     display.textContent = total;
+    
+     if (op !== '' && secondNum === '') {
+         secondNum += firstNum;
+         total = operate[op](firstNum, secondNum);
+         display.textContent = total;
+        }
+        
+        total = operate[op](firstNum, secondNum);
+        display.textContent = total;
     
 })
 }
@@ -91,12 +98,9 @@ clear.addEventListener('click', () => {
 
 
 
-//Operate function
+//Operate object
 const operate = {
 
-    //loop over keys in obj and execute value for matching keys.
-//    a: firstNum,
-//    b: secondNum,
     
     "+" ( a,b ) 
     {

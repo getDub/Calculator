@@ -16,88 +16,6 @@ let total = '';
 
 
 
-
-//Numbers
-nums.forEach((button) => {
-     
-    button.addEventListener('click', () => {
-         
-        if ( op === '') {
-            firstNum += button.textContent;
-            display.textContent = firstNum;
-        }else {
-            secondNum += button.textContent; //I think a call to Equals should be done after second number?
-            display.textContent = secondNum; 
-        }
-             
-    });
-})
-
-
-
-//Operators
-let operations = function () {
-    
-    operators.forEach((operation) => {
-        
-        operation.addEventListener('click', () => {
-
-            if( secondNum !== '') {
-                total = operate[op](firstNum, secondNum)
-                display.textContent = total;
-            }
-            
-            if (op !== '' && secondNum === '') {
-                secondNum += firstNum;
-                total = operate[op](firstNum, secondNum);
-                display.textContent = total;
-            }
-
-            op = operation.textContent;
-            
-            
-        })
-    })
-}
-operations();
-
-
-
-//Equals
-const equalsBtn = function (){
-
-equals.addEventListener('click', () => {
-    
-    
-     if (op !== '' && secondNum === '') {
-         secondNum += firstNum;
-         total = operate[op](firstNum, secondNum);
-         display.textContent = total;
-        }
-        
-        total = operate[op](firstNum, secondNum);
-        display.textContent = total;
-    
-})
-}
-
-equalsBtn();
-
-
-
-//Clear
-clear.addEventListener('click', () => {
-    display.textContent = '';
-    displayValues = '';
-    firstNum = '';
-    op = '';
-    secondNum = '';
-    total = '';
-    
-})
-
-
-
 //Operate object
 const operate = {
 
@@ -132,7 +50,96 @@ const operate = {
         op = '';
         secondNum = '';
         return firstNum;
-    }
+    },
     
-    
+    displayValue (btnInputs)
+    {
+        display.textContent = btnInputs;
+    },
+
+    // operations ()
+    // {
+    //     if( secondNum !== '') {
+    //         total = operate[op](firstNum, secondNum);
+    //         operate.displayValue(total);
+    //     }
+        
+    //     if (op !== '' && secondNum === '') {
+    //         secondNum += firstNum;
+    //         total = operate[op](firstNum, secondNum);
+    //         operate.displayValue(total);
+    //     }
+
+    //     op = this.operation.textContent
+    // },
+
+    equalsBtn () 
+    {
+        if (op !== '' && secondNum === '') 
+        {
+         secondNum += firstNum;
+         total = operate[op](firstNum, secondNum);
+         operate.displayValue(total);
+        }
+        
+        total = operate[op](firstNum, secondNum);
+        operate.displayValue(total);
+    },
+
+    allClear () 
+    {
+        display.textContent = '';
+        firstNum = '';
+        op = '';
+        secondNum = '';
+        total = '';
+    },
 }
+
+
+//Numbers
+nums.forEach((button) => {
+    
+    button.addEventListener('click', () => {
+        
+        if ( op === '') {
+            firstNum += button.textContent;
+            operate.displayValue(firstNum)
+        }else {
+            secondNum += button.textContent; 
+            operate.displayValue(secondNum)
+        }
+             
+    });
+})
+
+
+
+//Operators
+operators.forEach((operation) => {
+        
+    operation.addEventListener('click', () => {
+
+        if( secondNum !== '') {
+            total = operate[op](firstNum, secondNum);
+            operate.displayValue(total);
+        }
+        
+        if (op !== '' && secondNum === '') {
+            secondNum += firstNum;
+            total = operate[op](firstNum, secondNum);
+            operate.displayValue(total);
+        }
+
+        op = operation.textContent
+    });
+    
+    });
+
+
+//Equals
+equals.addEventListener('click', operate.equalsBtn)
+
+
+//Clear
+clear.addEventListener('click', operate.allClear);

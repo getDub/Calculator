@@ -23,9 +23,10 @@ const operate = {
     "+" ( a,b ) 
     {
         firstNum = [Number(a),Number(b)].reduce((total, current) => total + current, 0);
+        firstNum = Math.round(firstNum * 10000000) / 10000000;
         op = '';
         secondNum = '';
-        return firstNum;
+        return firstNum.toString().split('').slice(0,9).join('');
     },
 
     "-" ( a,b ) 

@@ -8,9 +8,6 @@ const equals = document.querySelector('.equals');
 
 
 //Parts of the calculator operation
-
-
-
 let firstNum = '';
 let op = '';
 let secondNum = '';
@@ -34,25 +31,28 @@ const operate = {
     "-" ( a,b ) 
     {
         firstNum = [Number(a),Number(b)].reduce((total, current) => total - current );
+        firstNum = Math.round(firstNum * 10000000) / 10000000;
         op = '';
         secondNum = '';
-        return firstNum;
+        return firstNum.toString().split('').slice(0,9).join('');
     },
 
     "*" ( a, b ) 
     {
         firstNum = [Number(a),Number(b)].reduce((total, current) => current * total, 1 );
+        firstNum = Math.round(firstNum * 10000000) / 10000000;
         op = '';
         secondNum = '';
-        return firstNum;
+        return firstNum.toString().split('').slice(0,9).join('');
     },
 
     "/" ( a, b ) 
     {
         firstNum = [Number(a),Number(b)].reduce((total, current) => total / current);
+        firstNum = Math.round(firstNum * 10000000) / 10000000;
         op = '';
         secondNum = '';
-        return firstNum;
+        return firstNum.toString().split('').slice(0,9).join('');
     },
     
     displayValue (btnInputs)
@@ -78,6 +78,7 @@ const operate = {
 
     equalsBtn () 
     {
+        //If statement is for pressing the operator repeatedly and getting the total to update.
         if (op !== '' && secondNum === '') 
         {
          secondNum += firstNum;
@@ -104,7 +105,7 @@ const operate = {
 nums.forEach((button) => {
     
     button.addEventListener('click', () => {
-        
+         
         if ( op === '' && firstNum.length <= 8) {
             firstNum += button.textContent;
             operate.displayValue(firstNum)

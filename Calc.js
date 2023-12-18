@@ -9,6 +9,8 @@ const equals = document.querySelector('.equals');
 
 //Parts of the calculator operation
 
+
+
 let firstNum = '';
 let op = '';
 let secondNum = '';
@@ -55,7 +57,7 @@ const operate = {
     
     displayValue (btnInputs)
     {
-        display.textContent = btnInputs;
+        display.value = btnInputs;
     },
 
     // operations ()
@@ -89,7 +91,7 @@ const operate = {
 
     allClear () 
     {
-        display.textContent = '';
+        display.value = '';
         firstNum = '';
         op = '';
         secondNum = '';
@@ -103,10 +105,14 @@ nums.forEach((button) => {
     
     button.addEventListener('click', () => {
         
-        if ( op === '') {
+        if ( op === '' && firstNum.length <= 8) {
             firstNum += button.textContent;
             operate.displayValue(firstNum)
-        }else {
+        }else if (firstNum.length === 8){
+            button.textContent = null
+        }
+        
+        if ( op != '' && secondNum.length <= 8) {
             secondNum += button.textContent; 
             operate.displayValue(secondNum)
         }

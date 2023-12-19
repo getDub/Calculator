@@ -12,12 +12,13 @@ let firstNum = '';
 let op = '';
 let secondNum = '';
 let total = '';
+const divideByZeroError = 'really?';
 
 
 
 //Operate object
 const operate = {
-
+    
     
     "+" ( a,b ) 
     {
@@ -55,26 +56,10 @@ const operate = {
         return firstNum.toString().split('').slice(0,9).join('');
     },
     
-    displayValue (btnInputs)
+    displayOnScreen (btnInputs)
     {
         display.value = btnInputs;
     },
-
-    // operations ()
-    // {
-    //     if( secondNum !== '') {
-    //         total = operate[op](firstNum, secondNum);
-    //         operate.displayValue(total);
-    //     }
-        
-    //     if (op !== '' && secondNum === '') {
-    //         secondNum += firstNum;
-    //         total = operate[op](firstNum, secondNum);
-    //         operate.displayValue(total);
-    //     }
-
-    //     op = this.operation.textContent
-    // },
 
     equalsBtn () 
     {
@@ -83,11 +68,11 @@ const operate = {
         {
          secondNum += firstNum;
          total = operate[op](firstNum, secondNum);
-         operate.displayValue(total);
+         operate.displayOnScreen(total);
         }
         
         total = operate[op](firstNum, secondNum);
-        operate.displayValue(total);
+        operate.displayOnScreen(total);
     },
 
     allClear () 
@@ -105,19 +90,25 @@ const operate = {
 nums.forEach((button) => {
     
     button.addEventListener('click', () => {
-         
-        if ( op === '' && firstNum.length <= 8) {
+
+        if (op === '' && firstNum.length <= 8) {
             firstNum += button.textContent;
-            operate.displayValue(firstNum)
-        }else if (firstNum.length === 8){
+            operate.displayOnScreen(firstNum)
+
+        } else if (firstNum.length === 8){
             button.textContent = null
         }
         
-        if ( op != '' && secondNum.length <= 8) {
+        if (op === '/' && button.textContent === "0") 
+        {
+            operate.displayOnScreen(divideByZeroError)
+
+        } else if (op != '' && secondNum.length <= 8) 
+        {
             secondNum += button.textContent; 
-            operate.displayValue(secondNum)
+            operate.displayOnScreen(secondNum)
         }
-             
+        
     });
 })
 
@@ -130,13 +121,13 @@ operators.forEach((operation) => {
 
         if( secondNum !== '') {
             total = operate[op](firstNum, secondNum);
-            operate.displayValue(total);
+            operate.displayOnScreen(total);
         }
         
         if (op !== '' && secondNum === '') {
             secondNum += firstNum;
             total = operate[op](firstNum, secondNum);
-            operate.displayValue(total);
+            operate.displayOnScreen(total);
         }
 
         op = operation.textContent

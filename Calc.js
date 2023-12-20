@@ -5,7 +5,7 @@ const nums = document.querySelectorAll('.nums');
 const operators = document.querySelectorAll('.operator');
 const clear = document.querySelector('.clear');
 const equals = document.querySelector('.equals');
-// const point = document.querySelector('.decimal')
+// const deci = document.querySelector('button').value='.';
 
 //Parts of the calculator operation
 let firstNum = '';
@@ -101,15 +101,14 @@ const operate = {
         op = '';
         secondNum = '';
         total = '';
+        
+        
     },
 
     divideByZero (){
         if (op === '/' &&  secondNum[0] === "0") 
         {
-
             operate.displayOnScreen(divideByZeroError)
-            // firstNum = NaN;
-            // operate.displayOnScreen(firstNum)
             
         }
     },
@@ -121,47 +120,31 @@ nums.forEach((button) => {
     
     button.addEventListener('click', () => {
 
-        if (op === '' && firstNum.length <= 8 ) {
+        if (op === '' && firstNum.length <= 8) 
+        {
             firstNum += button.value;
             operate.displayOnScreen(firstNum)
-            
-        } else if (firstNum.length === 8){
-            button.value = null
+            if(firstNum.includes('.') && button.value === '.') button.value = '';
         }
-
-        if (op === '/' &&  secondNum[0] === "0") 
-        {
-            operate.displayOnScreen(divideByZeroError)
-            firstNum += NaN;
-        } 
-        else if (op != '' && secondNum.length <= 8) 
-        {
-          
-            secondNum += button.value;
-            // operate.divideByZero();
-            // firstNum += button.value;
-            operate.displayOnScreen(secondNum)
-        } 
         
+        if (op != '' && secondNum.length <= 8) 
+        {  
+            //Below adds the attribute value back to '.'
+            if(!secondNum.includes('.') && button.value === '') button.value = '.';
+            secondNum += button.value;
+            operate.displayOnScreen(secondNum)
+            if(secondNum.includes('.') && button.value === '.') 
+            {
+                button.value = '';
+            }
+            else if ( button.value === '')
+            {
+                button.value = '.';
+            }
+        
+        } 
     });
 })
-
-//Point
-// point.addEventListener('click', operate.decimalPoint);
-
-    // function decimalPoint(){
-    //     if(firstNum.includes('.'))
-    //     {
-    //         point.value = '';
-    //     }
-          
-    //     if (secondNum.includes('.'))
-    //     {
-    //         point.value = '';
-    //     } 
-       
-
-    // };
 
 //Operators
 operators.forEach((operation) => {

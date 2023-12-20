@@ -5,7 +5,7 @@ const nums = document.querySelectorAll('.nums');
 const operators = document.querySelectorAll('.operator');
 const clear = document.querySelector('.clear');
 const equals = document.querySelector('.equals');
-
+// const point = document.querySelector('.decimal')
 
 //Parts of the calculator operation
 let firstNum = '';
@@ -13,11 +13,12 @@ let op = '';
 let secondNum = '';
 let total = '';
 const divideByZeroError = 'really?';
-
+let test = 'Yay';
 
 
 //Operate object
 const operate = {
+    
     
     
     "+" ( a,b ) 
@@ -55,7 +56,21 @@ const operate = {
         secondNum = '';
         return firstNum.toString().split('').slice(0,9).join('');
     },
-    
+
+    // decimalPoint()
+    // {
+    //     if(firstNum.includes('.'))
+    //     {
+    //         point.value = '';
+    //     }
+          
+    //     if (secondNum.includes('.'))
+    //     {
+    //         point.value = '';
+    //     } 
+       
+    // },
+
     displayOnScreen (btnInputs)
     {
         display.value = btnInputs;
@@ -63,16 +78,20 @@ const operate = {
 
     equalsBtn () 
     {
-        //If statement is for pressing the operator repeatedly and getting the total to update.
+        //If statement is for pressing the same operator repeatedly and getting the total to update.
         if (op !== '' && secondNum === '') 
         {
          secondNum += firstNum;
          total = operate[op](firstNum, secondNum);
          operate.displayOnScreen(total);
         }
-        
+        if (op === '/' && secondNum === "0"){
+            operate.displayOnScreen(divideByZeroError)
+            firstNum = NaN;
+        } else {
         total = operate[op](firstNum, secondNum);
         operate.displayOnScreen(total);
+        }
     },
 
     allClear () 
@@ -83,6 +102,17 @@ const operate = {
         secondNum = '';
         total = '';
     },
+
+    divideByZero (){
+        if (op === '/' &&  secondNum[0] === "0") 
+        {
+
+            operate.displayOnScreen(divideByZeroError)
+            // firstNum = NaN;
+            // operate.displayOnScreen(firstNum)
+            
+        }
+    },
 }
 
 
@@ -91,28 +121,47 @@ nums.forEach((button) => {
     
     button.addEventListener('click', () => {
 
-        if (op === '' && firstNum.length <= 8) {
-            firstNum += button.textContent;
+        if (op === '' && firstNum.length <= 8 ) {
+            firstNum += button.value;
             operate.displayOnScreen(firstNum)
-
+            
         } else if (firstNum.length === 8){
-            button.textContent = null
+            button.value = null
         }
-        
-        if (op === '/' && button.textContent === "0") 
+
+        if (op === '/' &&  secondNum[0] === "0") 
         {
             operate.displayOnScreen(divideByZeroError)
-
-        } else if (op != '' && secondNum.length <= 8) 
+            firstNum += NaN;
+        } 
+        else if (op != '' && secondNum.length <= 8) 
         {
-            secondNum += button.textContent; 
+          
+            secondNum += button.value;
+            // operate.divideByZero();
+            // firstNum += button.value;
             operate.displayOnScreen(secondNum)
-        }
+        } 
         
     });
 })
 
+//Point
+// point.addEventListener('click', operate.decimalPoint);
 
+    // function decimalPoint(){
+    //     if(firstNum.includes('.'))
+    //     {
+    //         point.value = '';
+    //     }
+          
+    //     if (secondNum.includes('.'))
+    //     {
+    //         point.value = '';
+    //     } 
+       
+
+    // };
 
 //Operators
 operators.forEach((operation) => {
@@ -130,7 +179,7 @@ operators.forEach((operation) => {
             operate.displayOnScreen(total);
         }
 
-        op = operation.textContent
+        op = operation.value
     });
     
     });

@@ -5,7 +5,7 @@ const nums = document.querySelectorAll('.nums');
 const operators = document.querySelectorAll('.operator');
 const clear = document.querySelector('.clear');
 const equals = document.querySelector('.equals');
-// const deci = document.querySelector('button').value='.';
+const deci = document.querySelector('button');
 
 //Parts of the calculator operation
 let firstNum = '';
@@ -13,7 +13,6 @@ let op = '';
 let secondNum = '';
 let total = '';
 const divideByZeroError = 'really?';
-let test = 'Yay';
 
 
 //Operate object
@@ -57,20 +56,6 @@ const operate = {
         return firstNum.toString().split('').slice(0,9).join('');
     },
 
-    // decimalPoint()
-    // {
-    //     if(firstNum.includes('.'))
-    //     {
-    //         point.value = '';
-    //     }
-          
-    //     if (secondNum.includes('.'))
-    //     {
-    //         point.value = '';
-    //     } 
-       
-    // },
-
     displayOnScreen (btnInputs)
     {
         display.value = btnInputs;
@@ -85,6 +70,7 @@ const operate = {
          total = operate[op](firstNum, secondNum);
          operate.displayOnScreen(total);
         }
+        //Msg displayed when trying to divide by zero.
         if (op === '/' && secondNum === "0"){
             operate.displayOnScreen(divideByZeroError)
             firstNum = NaN;
@@ -101,8 +87,7 @@ const operate = {
         op = '';
         secondNum = '';
         total = '';
-        
-        
+                
     },
 
     divideByZero (){
@@ -118,33 +103,29 @@ const operate = {
 //Numbers
 nums.forEach((button) => {
     
-    button.addEventListener('click', () => {
-
+    button.addEventListener('click', () => 
+    {     
         if (op === '' && firstNum.length <= 8) 
         {
+        // if(total === '' && secondNum === '' && button.value === '') button.value = '.';
             firstNum += button.value;
             operate.displayOnScreen(firstNum)
-            if(firstNum.includes('.') && button.value === '.') button.value = '';
+            if (firstNum.includes('.') && button.value === '.') button.value = '';
         }
         
         if (op != '' && secondNum.length <= 8) 
         {  
-            //Below adds the attribute value back to '.'
+            //Below changes the attribute value back to '.'
             if(!secondNum.includes('.') && button.value === '') button.value = '.';
             secondNum += button.value;
             operate.displayOnScreen(secondNum)
-            if(secondNum.includes('.') && button.value === '.') 
+            if (secondNum.includes('.') && button.value === '.') 
             {
                 button.value = '';
             }
-            else if ( button.value === '')
-            {
-                button.value = '.';
-            }
-        
         } 
     });
-})
+});
 
 //Operators
 operators.forEach((operation) => {

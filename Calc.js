@@ -100,15 +100,17 @@ const operate = {
 
     backspace()
     {
-        if(firstNum !== '' && secondNum === '')
+        if (firstNum !== '' && secondNum === '')
         {
             let backSp = firstNum.split('').slice(0,-1).join('');
             firstNum = backSp
             operate.displayOnScreen(firstNum);
-
-        } else if (op !== '' && !secondNum === '')
+        } 
+        if (op !== '' && secondNum !== '')
         {
-            secondNum.split('').slice(0,-1);
+            let backSp2 = secondNum.split('').slice(0,-1).join('');
+            secondNum = backSp2
+            operate.displayOnScreen(secondNum);
         }
     },
 }

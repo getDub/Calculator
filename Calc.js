@@ -5,7 +5,7 @@ const nums = document.querySelectorAll('.nums');
 const operators = document.querySelectorAll('.operator');
 const clear = document.querySelector('.clear');
 const equals = document.querySelector('.equals');
-const deci = document.querySelector('button');
+const back = document.querySelector('.bkSpace');
 
 //Parts of the calculator operation
 let firstNum = '';
@@ -97,6 +97,20 @@ const operate = {
             
         }
     },
+
+    backspace()
+    {
+        if(firstNum !== '' && secondNum === '')
+        {
+            let backSp = firstNum.split('').slice(0,-1).join('');
+            firstNum = backSp
+            operate.displayOnScreen(firstNum);
+
+        } else if (op !== '' && !secondNum === '')
+        {
+            secondNum.split('').slice(0,-1);
+        }
+    },
 }
 
 
@@ -151,6 +165,9 @@ operators.forEach((operation) => {
     
     });
 
+
+//Backspace
+back.addEventListener('click', operate.backspace)
 
 //Equals
 equals.addEventListener('click', operate.equalsBtn)

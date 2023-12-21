@@ -107,7 +107,7 @@ nums.forEach((button) => {
     {     
         if (op === '' && firstNum.length <= 8) 
         {
-        // if(total === '' && secondNum === '' && button.value === '') button.value = '.';
+        if(!firstNum.includes('.') && button.value === '') button.value = '.';
             firstNum += button.value;
             operate.displayOnScreen(firstNum)
             if (firstNum.includes('.') && button.value === '.') button.value = '';

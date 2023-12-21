@@ -1,3 +1,8 @@
 .projectHeading {
 color: rgb(23, 86, 94);
 }
+
+.display {
+    background-color: aquamarine;
+    width: 100px;
+}

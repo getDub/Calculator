@@ -10,35 +10,50 @@
 <body>
     <h1 class="projectHeading">Project: Calculator</h1>
 
+    <div>
+    <input type="text" class="display" minlength="1" maxlength="9" placeholder="0"/>
+    </div>
     
-    <!-- <input type="text" name="screen" value="58008" class="display"/> -->
-    <div class="display"></div>
     
     <div class="operands">
-        <button class="nums">1</button>
-        <button class="nums">2</button>
-        <button class="nums">3</button>
-        <button class="nums">4</button>
-        <button class="nums">5</button>
-        <button class="nums">6</button>
-        <button class="nums">7</button>
-        <button class="nums">8</button>
-        <button class="nums">9</button>
-        <button class="nums">0</button>        
-        <button class="nums">.</button>        
+        <button class="nums" value="1">1</button>
+        <button class="nums" value="2">2</button>
+        <button class="nums" value="3">3</button>
+        <button class="nums" value="4">4</button>
+        <button class="nums" value="5">5</button>
+        <button class="nums" value="6">6</button>
+        <button class="nums" value="7">7</button>
+        <button class="nums" value="8">8</button>
+        <button class="nums" value="9">9</button>
+        <button class="nums" value="0">0</button>        
+        <button class="nums" data-decimal="." value=".">.</button>        
     </div>
+    
     <div class="operators">
+<<<<<<< HEAD
         <button class="operator">+</button>
         <button class="operator"> - </button>
         <button class="operator"> * </button>
         <button class="operator"> / </button>
+=======
+        <button class="operator" value="+">+</button>
+        <button class="operator" value="-">-</button>
+        <button class="operator" value="*">*</button>
+        <button class="operator" value="/">/</button>
+>>>>>>> alternative_btn_log
     </div>
+    
     <div class="total">
         <button class="equals">=</button>
     </div>
+    
     <div class="clear">
         <button>C</button>
     </div>
     
+    <!-- <div class="point" value=".">
+    <button class="decimal" value=".">.</button>        
+    </div> -->
+
 </body>
 </html>

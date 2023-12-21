@@ -5,123 +5,156 @@ const nums = document.querySelectorAll('.nums');
 const operators = document.querySelectorAll('.operator');
 const clear = document.querySelector('.clear');
 const equals = document.querySelector('.equals');
-
-
+const deci = document.querySelector('button');
 
 //Parts of the calculator operation
-let displayValues = '';
-let a;
+let firstNum = '';
 let op = '';
-let b;
-let finalTotal;
-let result;
+let secondNum = '';
+let total = '';
+const divideByZeroError = 'really?';
 
 
-//Add event listener to all the buttons with a class of nums.
-nums.forEach((button) => {
-     
-    button.addEventListener('click', () => {
-         
-        
-        displayValues += button.textContent; 
-        display.textContent = displayValues; 
-        
-     
-       
-    });
-})
-
-
-
-//Event listners for operator buttons
-let operations = function () {
+//Operate object
+const operate = {
     
-    operators.forEach((operation) => {
-        
-        operation.addEventListener('click', () => {
+    
+    
+    "+" ( a,b ) 
+    {
+        firstNum = [Number(a),Number(b)].reduce((total, current) => total + current, 0);
+        firstNum = Math.round(firstNum * 10000000) / 10000000;
+        op = '';
+        secondNum = '';
+        return firstNum.toString().split('').slice(0,9).join('');
+    },
 
-            display.textContent = displayValues;
-            finalTotal = operate( displayValues);
-            op  = operation.textContent; 
-            displayValues += operation.textContent; 
+    "-" ( a,b ) 
+    {
+        firstNum = [Number(a),Number(b)].reduce((total, current) => total - current );
+        firstNum = Math.round(firstNum * 10000000) / 10000000;
+        op = '';
+        secondNum = '';
+        return firstNum.toString().split('').slice(0,9).join('');
+    },
+
+    "*" ( a, b ) 
+    {
+        firstNum = [Number(a),Number(b)].reduce((total, current) => current * total, 1 );
+        firstNum = Math.round(firstNum * 10000000) / 10000000;
+        op = '';
+        secondNum = '';
+        return firstNum.toString().split('').slice(0,9).join('');
+    },
+
+    "/" ( a, b ) 
+    {
+        firstNum = [Number(a),Number(b)].reduce((total, current) => total / current);
+        firstNum = Math.round(firstNum * 10000000) / 10000000;
+        op = '';
+        secondNum = '';
+        return firstNum.toString().split('').slice(0,9).join('');
+    },
+
+    displayOnScreen (btnInputs)
+    {
+        display.value = btnInputs;
+    },
+
+    equalsBtn () 
+    {
+        //If statement is for pressing the same operator repeatedly and getting the total to update.
+        if (op !== '' && secondNum === '') 
+        {
+         secondNum += firstNum;
+         total = operate[op](firstNum, secondNum);
+         operate.displayOnScreen(total);
+        }
+        //Msg displayed when trying to divide by zero.
+        if (op === '/' && secondNum === "0"){
+            operate.displayOnScreen(divideByZeroError)
+            firstNum = NaN;
+        } else {
+        total = operate[op](firstNum, secondNum);
+        operate.displayOnScreen(total);
+        }
+    },
+
+    allClear () 
+    {
+        display.value = '';
+        firstNum = '';
+        op = '';
+        secondNum = '';
+        total = '';
+                
+    },
+
+    divideByZero (){
+        if (op === '/' &&  secondNum[0] === "0") 
+        {
+            operate.displayOnScreen(divideByZeroError)
             
-        })
-    })
+        }
+    },
 }
-operations();
 
 
-
-const equalsBtn = function (){
-equals.addEventListener('click', () => {
+//Numbers
+nums.forEach((button) => {
     
-    finalTotal = operate( displayValues );
-    display.textContent = finalTotal;
-
-    
-    
-})
-}
-
-equalsBtn();
-
-
-
-clear.addEventListener('click', () => {
-    display.textContent = '';
-    displayValues = '';
-    op = '';
-    
-})
-
-
-
-
-//Add function
-const add = function ( [a,b] ) 
-{
-    return displayValues = ([a,b].reduce((total, current) => total + current, 0)).toString();
-}
-
-//Subtract function
-const subtract = function ( [a,b] ) 
-{
-    return displayValues = ([a,b].reduce((total, current) => total - current )).toString();
-}
-
-//Multiply function 
-const multiply = function ( [a, b] ) 
-{
-    return displayValues = ([a,b].reduce((total, current) => current * total, 1 )).toString();
-}
-
-//Divide function 
-const divide = function( [a, b] ) 
-{
-    return displayValues = ([a,b].reduce((total, current) => total / current)).toString();
-}
-
-
-
-//Operate function
-const operate = function ( equation ) {
-
-    let str = equation.split(" ")
-
-    a = +str[0];
-    op = str[1];
-    b = +str[2];
+    button.addEventListener('click', () => 
+    {     
+        if (op === '' && firstNum.length <= 8) 
+        {
+        // if(total === '' && secondNum === '' && button.value === '') button.value = '.';
+            firstNum += button.value;
+            operate.displayOnScreen(firstNum)
+            if (firstNum.includes('.') && button.value === '.') button.value = '';
+        }
         
-    if (op === "+") return add ([a,b]);
-    if (op === "-") return subtract([a,b]); 
-    if (op === "*") return multiply([a,b]); 
-    if (op === "/") return divide([a,b]); 
+        if (op != '' && secondNum.length <= 8) 
+        {  
+            //Below changes the attribute value back to '.'
+            if(!secondNum.includes('.') && button.value === '') button.value = '.';
+            secondNum += button.value;
+            operate.displayOnScreen(secondNum)
+            if (secondNum.includes('.') && button.value === '.') 
+            {
+                button.value = '';
+            }
+        } 
+
+    });
+});
+
+
+//Operators
+operators.forEach((operation) => {
+        
+    operation.addEventListener('click', () => {
+
+        if( secondNum !== '') {
+            total = operate[op](firstNum, secondNum);
+            operate.displayOnScreen(total);
+        }
+
+        
+        if (op !== '' && secondNum === '') {
+            secondNum += firstNum;
+            total = operate[op](firstNum, secondNum);
+            operate.displayOnScreen(total);
+        }
+
+        op = operation.value
+    });
     
-    
-}
+    });
 
 
+//Equals
+equals.addEventListener('click', operate.equalsBtn)
 
 
-
-
+//Clear
+clear.addEventListener('click', operate.allClear);

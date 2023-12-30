@@ -8,11 +8,11 @@ const equals = document.querySelector('.equals');
 const back = document.querySelector('.bkSpace');
 
 //Parts of the calculator operation
+const divideByZeroError = 'really?';
 let firstNum = '';
 let op = '';
 let secondNum = '';
 let total = '';
-const divideByZeroError = 'really?';
 
 
 //Operate object
@@ -102,15 +102,19 @@ const operate = {
     {
         if (firstNum !== '' && secondNum === '')
         {
-            let backSp = firstNum.split('').slice(0,-1).join('');
+            
+            let backSp = firstNum.toString().split('').slice(0,-1).join('');
             firstNum = backSp
             operate.displayOnScreen(firstNum);
+            op = "";
+            // total = '';
         } 
         if (op !== '' && secondNum !== '')
         {
             let backSp2 = secondNum.split('').slice(0,-1).join('');
             secondNum = backSp2
             operate.displayOnScreen(secondNum);
+            // total = '';
         }
     },
 }
@@ -121,7 +125,7 @@ nums.forEach((button) => {
     
     button.addEventListener('click', () => 
     {     
-        if (op === '' && firstNum.length <= 8) 
+        if (op === '' || total !== '' && secondNum === '' && firstNum.length <= 8) 
         {
         if(!firstNum.includes('.') && button.value === '') button.value = '.';
             firstNum += button.value;
@@ -129,7 +133,7 @@ nums.forEach((button) => {
             if (firstNum.includes('.') && button.value === '.') button.value = '';
         }
         
-        if (op != '' && secondNum.length <= 8) 
+        if (op != '' /*&& total === ''*/ && secondNum.length <= 8) 
         {  
             //Below changes the attribute value back to '.'
             if(!secondNum.includes('.') && button.value === '') button.value = '.';

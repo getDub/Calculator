@@ -1,8 +1,76 @@
-.projectHeading {
-color: rgb(23, 86, 94);
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    background: rgb(255, 255, 174);
 }
 
 .display {
-    background-color: aquamarine;
-    width: 100px;
+    grid-column: 1 / -1;
+    background-color: rgba(0, 0, 0, .75);
+    color: rgba(255, 255, 255, .9);
+    padding: 10px;
 }
+
+input[type="text"] {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
+    font-size: 4rem;
+
+}
+.calculator-grid {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    min-height: 100vh;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(7, 100px);
+}
+
+.calculator-grid > button {
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px solid rgb(31, 6, 6);
+    outline:none;
+    background-color: rgba(255,255,255, .75);
+}
+
+.calculator-grid > button:hover {
+    background-color: rgba(255, 255, 255, .9);
+}
+
+.span-three {
+    grid-column: span 3;
+}
+
+.span-two {
+    grid-column: span 2;
+}
+
+
+.row2 {
+    grid-row: span 2;
+
+}
+
+
+
+/* .display { */
+    /* display: flex;
+    align-content: end;
+    background-color: rgba(0, 0, 0, .8 );
+    border: none;
+    color: white;
+    width: 300px;
+    height: 100px;
+    padding: 5px;
+} */
+

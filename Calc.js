@@ -31,29 +31,29 @@ const operate = {
 
     "-" ( a,b ) 
     {
-        firstNum = [Number(a),Number(b)].reduce((total, current) => total - current );
-        firstNum = Math.round(firstNum * 10000000) / 10000000;
+        secondNum = [Number(a),Number(b)].reduce((total, current) => current - total );
+        secondNum = Math.round(secondNum * 10000000) / 10000000;
         op = '';
-        secondNum = '';
-        return firstNum.toString().split('').slice(0,9).join('');
+        firstNum = '';
+        return secondNum.toString().split('').slice(0,9).join('');
     },
 
     "*" ( a, b ) 
     {
-        firstNum = [Number(a),Number(b)].reduce((total, current) => current * total, 1 );
-        firstNum = Math.round(firstNum * 10000000) / 10000000;
+        secondNum = [Number(a),Number(b)].reduce((total, current) => current * total, 1 );
+        secondNum = Math.round(secondNum * 10000000) / 10000000;
         op = '';
-        secondNum = '';
-        return firstNum.toString().split('').slice(0,9).join('');
+        firstNum = '';
+        return secondNum.toString().split('').slice(0,9).join('');
     },
 
     "/" ( a, b ) 
     {
-        firstNum = [Number(a),Number(b)].reduce((total, current) => total / current);
-        firstNum = Math.round(firstNum * 10000000) / 10000000;
+        secondNum = [Number(a),Number(b)].reduce((total, current) => current / total);
+        secondNum = Math.round(secondNum * 10000000) / 10000000;
         op = '';
-        secondNum = '';
-        return firstNum.toString().split('').slice(0,9).join('');
+        firstNum = '';
+        return secondNum.toString().split('').slice(0,9).join('');
     },
 
     displayOnScreen (btnInputs)

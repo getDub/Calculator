@@ -22,11 +22,11 @@ const operate = {
     
     "+" ( a,b ) 
     {
-        firstNum = [Number(a),Number(b)].reduce((total, current) => total + current, 0);
-        firstNum = Math.round(firstNum * 10000000) / 10000000;
+        secondNum = [Number(a),Number(b)].reduce((total, current) => total + current, 0);
+        secondNum = Math.round(secondNum * 10000000) / 10000000;
         op = '';
-        secondNum = '';
-        return firstNum.toString().split('').slice(0,9).join('');
+        firstNum = '';
+        return secondNum.toString().split('').slice(0,9).join('');
     },
 
     "-" ( a,b ) 
@@ -58,6 +58,7 @@ const operate = {
 
     displayOnScreen (btnInputs)
     {
+        // if(display.value.length >= 9) return btnInputs = '';
         display.value = btnInputs;
     },
 
@@ -125,25 +126,29 @@ nums.forEach((button) => {
     
     button.addEventListener('click', () => 
     {     
-        if (op === '' || total !== '' && secondNum === '' && firstNum.length <= 8) 
-        {
-        if(!firstNum.includes('.') && button.value === '') button.value = '.';
-            firstNum += button.value;
-            operate.displayOnScreen(firstNum)
-            if (firstNum.includes('.') && button.value === '.') button.value = '';
-        }
+        if(firstNum.includes('.') && button.value === '.')return
+        firstNum.length < 9 ? firstNum += button.value : button.value = '';
+        operate.displayOnScreen(firstNum);
         
-        if (op != '' /*&& total === ''*/ && secondNum.length <= 8) 
-        {  
-            //Below changes the attribute value back to '.'
-            if(!secondNum.includes('.') && button.value === '') button.value = '.';
-            secondNum += button.value;
-            operate.displayOnScreen(secondNum)
-            if (secondNum.includes('.') && button.value === '.') 
-            {
-                button.value = '';
-            }
-        } 
+        // if (op === '' || total !== '' && secondNum === '' && firstNum.length <= 8) 
+        // {
+        // if(!firstNum.includes('.') && button.value === '') button.value = '.';
+        //     firstNum += button.value;
+        //     operate.displayOnScreen(firstNum)
+        //     if (firstNum.includes('.') && button.value === '.') button.value = '';
+        // }
+        
+        // if (op != '' /*&& total === ''*/ && secondNum.length <= 8) 
+        // {  
+        //     //Below changes the attribute value back to '.'
+        //     if(!secondNum.includes('.') && button.value === '') button.value = '.';
+        //     secondNum += button.value;
+        //     operate.displayOnScreen(secondNum)
+        //     if (secondNum.includes('.') && button.value === '.') 
+        //     {
+        //         button.value = '';
+        //     }
+        // } 
 
     });
 });
@@ -152,21 +157,29 @@ nums.forEach((button) => {
 //Operators
 operators.forEach((operation) => {
         
-    operation.addEventListener('click', () => {
-
-        if( secondNum !== '') {
-            total = operate[op](firstNum, secondNum);
-            operate.displayOnScreen(total);
+    operation.addEventListener('click', () => 
+    {
+        
+        if(secondNum !== '' && firstNum !== '') {
+            operate[op](firstNum, secondNum); //trigger sum method
+            operate.displayOnScreen(secondNum) //display sum answer
         }
+        secondNum += firstNum;
+        firstNum = '';
+        if(op !== "") firstNum += secondNum; //pressing op twice
+        op = operation.value
+        // if( secondNum !== '') {
+        //     total = operate[op](firstNum, secondNum);
+        //     operate.displayOnScreen(total);
+        // }
 
         
-        if (op !== '' && secondNum === '') {
-            secondNum += firstNum;
-            total = operate[op](firstNum, secondNum);
-            operate.displayOnScreen(total);
-        }
+        // if (op !== '' && secondNum === '') {
+        //     secondNum += firstNum;
+        //     total = operate[op](firstNum, secondNum);
+        //     operate.displayOnScreen(total);
+        // }
 
-        op = operation.value
     });
     
     });

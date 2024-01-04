@@ -67,7 +67,7 @@ const operate = {
         displayNum = displayNum.toString()
         if (displayNum.includes("e") && displayNum.length > 9){
         displayNum = NaN;
-        }else if (displayNum.length >= 9){
+        }else if (displayNum.length >= 9 && !displayNum.includes(".")){
            displayNum =  Number(secondNum)
            displayNum = displayNum * 10000000000
         return displayNum = displayNum.toString().split('').slice(0,9).join('');
@@ -94,8 +94,8 @@ const operate = {
             operate.displayOnScreen(divideByZeroError)
             firstNum = NaN;
         } else {
-        total = operate[op](firstNum, secondNum);
-        operate.displayOnScreen(total);
+        operate[op](firstNum, secondNum);
+        operate.displayOnScreen(displayNum);
         }
     },
 
@@ -106,6 +106,7 @@ const operate = {
         op = '';
         secondNum = '';
         total = '';
+        displayNum = '';
                 
     },
 

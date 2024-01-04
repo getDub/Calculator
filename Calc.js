@@ -53,6 +53,7 @@ const operate = {
         op = '';
         firstNum = '';
         // return secondNum = secondNum.toString().split('').slice(0,9).join('');
+        
     },
 
     "/" ( a, b ) 

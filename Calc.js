@@ -26,7 +26,7 @@ const operate = {
         secondNum = Math.round(secondNum * 10000000) / 10000000;
         op = '';
         firstNum = '';
-        return secondNum.toString().split('').slice(0,9).join('');
+        return secondNum = secondNum.toString().split('').slice(0,9).join('');
     },
 
     "-" ( a,b ) 
@@ -35,7 +35,7 @@ const operate = {
         secondNum = Math.round(secondNum * 10000000) / 10000000;
         op = '';
         firstNum = '';
-        return secondNum.toString().split('').slice(0,9).join('');
+        return secondNum = secondNum.toString().split('').slice(0,9).join('');
     },
 
     "*" ( a, b ) 
@@ -44,7 +44,7 @@ const operate = {
         secondNum = Math.round(secondNum * 10000000) / 10000000;
         op = '';
         firstNum = '';
-        return secondNum.toString().split('').slice(0,9).join('');
+        return secondNum = secondNum.toString().split('').slice(0,9).join('');
     },
 
     "/" ( a, b ) 
@@ -53,7 +53,7 @@ const operate = {
         secondNum = Math.round(secondNum * 10000000) / 10000000;
         op = '';
         firstNum = '';
-        return secondNum.toString().split('').slice(0,9).join('');
+        return secondNum = secondNum.toString().split('').slice(0,9).join('');
     },
 
     displayOnScreen (btnInputs)
@@ -166,7 +166,11 @@ operators.forEach((operation) => {
         }
         secondNum += firstNum;
         firstNum = '';
-        if(op !== "") firstNum += secondNum; //pressing op twice
+        if(op !== "") {
+            firstNum += secondNum; //pressing op twice
+            operate[op](firstNum, secondNum); //trigger sum method
+            operate.displayOnScreen(secondNum)
+        }
         op = operation.value
         // if( secondNum !== '') {
         //     total = operate[op](firstNum, secondNum);

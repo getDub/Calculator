@@ -53,12 +53,10 @@ const operate = {
     "/" ( a, b ) 
     {
         secondNum = [Number(a),Number(b)].reduce((total, current) => current / total);
-        // secondNum = Math.round(secondNum * 10000000) / 10000000;
         operate.rounding();
         op = '';
         firstNum = '';
-        // return secondNum
-        //  = secondNum.toString().split('').slice(0,9).join('');
+       
     },
 
     rounding(){
@@ -76,13 +74,11 @@ const operate = {
 
     displayOnScreen (btnInputs)
     {
-        // if(display.value.length >= 9) return btnInputs = '';
         display.value = btnInputs;
     },
 
     equalsBtn () 
     {
-        //If statement is for pressing the same operator repeatedly and getting the total to update.
         if (op !== '' && secondNum === '') 
         {
          secondNum += firstNum;
@@ -90,7 +86,7 @@ const operate = {
          operate.displayOnScreen(total);
         }
         //Msg displayed when trying to divide by zero.
-        if (op === '/' && secondNum === "0"){
+        if (op === '/' && firstNum === "0"){
             operate.displayOnScreen(divideByZeroError)
             firstNum = NaN;
         } else {

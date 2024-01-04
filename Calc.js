@@ -13,7 +13,7 @@ let firstNum = '';
 let op = '';
 let secondNum = '';
 let total = '';
-
+let displayNum;
 
 //Operate object
 const operate = {
@@ -23,59 +23,55 @@ const operate = {
     "+" ( a,b ) 
     {
         secondNum = [Number(a),Number(b)].reduce((total, current) => total + current, 0);
-        secondNum = Math.round(secondNum * 10000000) / 10000000;
+        // secondNum = Math.round(secondNum * 10000000) / 10000000;
+        operate.rounding();
         op = '';
         firstNum = '';
-        return secondNum = secondNum.toString().split('').slice(0,9).join('');
+        // return secondNum = secondNum.toString().split('').slice(0,9).join('');
     },
 
     "-" ( a,b ) 
     {
         secondNum = [Number(a),Number(b)].reduce((total, current) => current - total );
-        secondNum = Math.round(secondNum * 10000000) / 10000000;
+        // secondNum = Math.round(secondNum * 10000000) / 10000000;
+        operate.rounding();
         op = '';
         firstNum = '';
-        return secondNum = secondNum.toString().split('').slice(0,9).join('');
+        // return secondNum = secondNum.toString().split('').slice(0,9).join('');
     },
 
     "*" ( a, b ) 
     {
         secondNum = [Number(a),Number(b)].reduce((total, current) => current * total, 1 );
-        // secondNum = Math.round(secondNum * 10000000) / 10000000;
-        // secondNum = secondNum.toString()
-        // if (secondNum.length >= 9){
-        //    secondNum =  Number(secondNum)
-        //    secondNum = secondNum * 10000000000
-        // } else if (secondNum.includes("e")){
-        // secondNum = NaN;
-        // }
         operate.rounding();
         op = '';
         firstNum = '';
-        // return secondNum = secondNum.toString().split('').slice(0,9).join('');
         
+
     },
 
     "/" ( a, b ) 
     {
         secondNum = [Number(a),Number(b)].reduce((total, current) => current / total);
         // secondNum = Math.round(secondNum * 10000000) / 10000000;
+        operate.rounding();
         op = '';
         firstNum = '';
-        return secondNum
+        // return secondNum
         //  = secondNum.toString().split('').slice(0,9).join('');
     },
 
     rounding(){
-        secondNum = Math.round(secondNum * 10000000) / 10000000;
-        secondNum = secondNum.toString()
-        if (secondNum.length >= 9){
-           secondNum =  Number(secondNum)
-           secondNum = secondNum * 10000000000
-        } else if (secondNum.includes("e")){
-        secondNum = NaN;
+        displayNum = secondNum;
+        displayNum = Math.round(secondNum * 10000000) / 10000000;
+        displayNum = displayNum.toString()
+        if (displayNum.includes("e") && displayNum.length > 9){
+        displayNum = NaN;
+        }else if (displayNum.length >= 9){
+           displayNum =  Number(secondNum)
+           displayNum = displayNum * 10000000000
+        return displayNum = displayNum.toString().split('').slice(0,9).join('');
         }
-        return secondNum = secondNum.toString().split('').slice(0,9).join('');
     },
 
     displayOnScreen (btnInputs)
@@ -184,14 +180,14 @@ operators.forEach((operation) => {
         
         if(secondNum !== '' && firstNum !== '') {
             operate[op](firstNum, secondNum); //trigger sum method
-            operate.displayOnScreen(secondNum) //display sum answer
+            operate.displayOnScreen(displayNum) //display sum answer
         }
         secondNum += firstNum;
         firstNum = '';
         if(op !== "") {
             firstNum += secondNum; //pressing op twice
             operate[op](firstNum, secondNum); //trigger sum method
-            operate.displayOnScreen(secondNum)
+            operate.displayOnScreen(displayNum)
         }
         op = operation.value
         // if( secondNum !== '') {

@@ -63,7 +63,7 @@ input[type="text"] {
 }
 
 .calculator-grid > button:hover {
-    background-color: rgba(255, 255, 255, .9);
+    background-color: rgba(240, 195, 240, 0.9);
 }
 
 .span-three {
@@ -81,15 +81,4 @@ input[type="text"] {
 }
 
 
-
-/* .display { */
-    /* display: flex;
-    align-content: end;
-    background-color: rgba(0, 0, 0, .8 );
-    border: none;
-    color: white;
-    width: 300px;
-    height: 100px;
-    padding: 5px;
-} */
 

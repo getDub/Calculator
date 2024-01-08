@@ -6,6 +6,7 @@ const operators = document.querySelectorAll('.operator');
 const clear = document.querySelector('.clear');
 const equals = document.querySelector('.equals');
 const back = document.querySelector('.bkSpace');
+const neg = document.querySelector('.neg');
 
 //Parts of the calculator operation
 const divideByZeroError = 'really?';
@@ -26,7 +27,9 @@ const operate = {
         // secondNum = Math.round(secondNum * 10000000) / 10000000;
         operate.rounding();
         op = '';
-        firstNum = '';
+        firstNum = secondNum.toString();
+        secondNum = "";
+
         // return secondNum = secondNum.toString().split('').slice(0,9).join('');
     },
 
@@ -36,8 +39,8 @@ const operate = {
         // secondNum = Math.round(secondNum * 10000000) / 10000000;
         operate.rounding();
         op = '';
-        firstNum = '';
-        // return secondNum = secondNum.toString().split('').slice(0,9).join('');
+        firstNum = secondNum.toString();
+        secondNum = "";
     },
 
     "*" ( a, b ) 
@@ -45,7 +48,8 @@ const operate = {
         secondNum = [Number(a),Number(b)].reduce((total, current) => current * total, 1 );
         operate.rounding();
         op = '';
-        firstNum = '';
+        firstNum = secondNum.toString();
+        secondNum = "";
         
 
     },
@@ -55,7 +59,8 @@ const operate = {
         secondNum = [Number(a),Number(b)].reduce((total, current) => current / total);
         operate.rounding();
         op = '';
-        firstNum = '';
+        firstNum = secondNum.toString();
+        secondNum = "";
        
     },
 
@@ -116,22 +121,38 @@ const operate = {
 
     backspace()
     {
-        if (firstNum !== '' && secondNum === '')
+        // if (firstNum !== '' && secondNum === '')
+        if (firstNum !== "")
         {
-            
             let backSp = firstNum.toString().split('').slice(0,-1).join('');
             firstNum = backSp
             operate.displayOnScreen(firstNum);
-            op = "";
+            // op = "";
             // total = '';
         } 
-        if (op !== '' && secondNum !== '')
-        {
-            let backSp2 = secondNum.split('').slice(0,-1).join('');
-            secondNum = backSp2
-            operate.displayOnScreen(secondNum);
-            // total = '';
+        // if (op !== '' && secondNum !== '')
+        // {
+        //     let backSp2 = secondNum.split('').slice(0,-1).join('');
+        //     secondNum = backSp2
+        //     operate.displayOnScreen(secondNum);
+        //     // total = '';
+        // }
+    },
+
+    negative() {
+        
+        if (firstNum.includes("-") && neg.value === "-") {
+            let removeNeg = firstNum.split("")
+            removeNeg.shift()
+            firstNum = removeNeg.join("")
+            operate.displayOnScreen(firstNum)
+        }else if (!firstNum.includes("-") && neg.value === "-"){
+            let addNeg = firstNum.split("")
+            addNeg.unshift(neg.value)
+            firstNum = addNeg.join('')
+            operate.displayOnScreen(firstNum)
         }
+        // }else if (!secondNum.includes("-") && neg.value === "-")
     },
 }
 
@@ -213,3 +234,6 @@ equals.addEventListener('click', operate.equalsBtn)
 
 //Clear
 clear.addEventListener('click', operate.allClear);
+
+//Plus minus toggle
+neg.addEventListener('click', operate.negative);

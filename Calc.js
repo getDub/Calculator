@@ -8,6 +8,7 @@ const equals = document.querySelector('.equals');
 const back = document.querySelector('.bkSpace');
 const neg = document.querySelector('.neg');
 
+
 //Parts of the calculator operation
 const divideByZeroError = 'really?';
 let firstNum = '';
@@ -17,26 +18,20 @@ let total = '';
 let displayNum;
 
 //Operate object
-const operate = {
-    
-    
-    
+const operate = 
+{
     "+" ( a,b ) 
     {
         secondNum = [Number(a),Number(b)].reduce((total, current) => total + current, 0);
-        // secondNum = Math.round(secondNum * 10000000) / 10000000;
         operate.rounding();
         op = '';
         firstNum = secondNum.toString();
         secondNum = "";
-
-        // return secondNum = secondNum.toString().split('').slice(0,9).join('');
     },
 
     "-" ( a,b ) 
     {
         secondNum = [Number(a),Number(b)].reduce((total, current) => current - total );
-        // secondNum = Math.round(secondNum * 10000000) / 10000000;
         operate.rounding();
         op = '';
         firstNum = secondNum.toString();
@@ -50,8 +45,6 @@ const operate = {
         op = '';
         firstNum = secondNum.toString();
         secondNum = "";
-        
-
     },
 
     "/" ( a, b ) 
@@ -61,7 +54,6 @@ const operate = {
         op = '';
         firstNum = secondNum.toString();
         secondNum = "";
-       
     },
 
     rounding(){
@@ -84,12 +76,6 @@ const operate = {
 
     equalsBtn () 
     {
-        if (op !== '' && secondNum === '') 
-        {
-         secondNum += firstNum;
-         total = operate[op](firstNum, secondNum);
-         operate.displayOnScreen(total);
-        }
         //Msg displayed when trying to divide by zero.
         if (op === '/' && firstNum === "0"){
             operate.displayOnScreen(divideByZeroError)
@@ -106,8 +92,8 @@ const operate = {
         firstNum = '';
         op = '';
         secondNum = '';
-        total = '';
         displayNum = '';
+        total = "";
                 
     },
 
@@ -121,26 +107,16 @@ const operate = {
 
     backspace()
     {
-        // if (firstNum !== '' && secondNum === '')
         if (firstNum !== "")
         {
             let backSp = firstNum.toString().split('').slice(0,-1).join('');
             firstNum = backSp
             operate.displayOnScreen(firstNum);
-            // op = "";
-            // total = '';
         } 
-        // if (op !== '' && secondNum !== '')
-        // {
-        //     let backSp2 = secondNum.split('').slice(0,-1).join('');
-        //     secondNum = backSp2
-        //     operate.displayOnScreen(secondNum);
-        //     // total = '';
-        // }
     },
 
-    negative() {
-        
+    negative() 
+    {
         if (firstNum.includes("-") && neg.value === "-") {
             let removeNeg = firstNum.split("")
             removeNeg.shift()
@@ -152,7 +128,6 @@ const operate = {
             firstNum = addNeg.join('')
             operate.displayOnScreen(firstNum)
         }
-        // }else if (!secondNum.includes("-") && neg.value === "-")
     },
 }
 
@@ -162,40 +137,19 @@ nums.forEach((button) => {
     
     button.addEventListener('click', () => 
     {     
-        if(firstNum.includes('.') && button.value === '.')return
+        if (firstNum === "" && button.value === "0") return //Zero can only be pressed once if no other number on screen
+        if(firstNum.includes('.') && button.value === '.')return //Decimal can only be pressed once.
         firstNum.length < 9 ? firstNum += button.value : button.value = '';
         operate.displayOnScreen(firstNum);
-        
-        // if (op === '' || total !== '' && secondNum === '' && firstNum.length <= 8) 
-        // {
-        // if(!firstNum.includes('.') && button.value === '') button.value = '.';
-        //     firstNum += button.value;
-        //     operate.displayOnScreen(firstNum)
-        //     if (firstNum.includes('.') && button.value === '.') button.value = '';
-        // }
-        
-        // if (op != '' /*&& total === ''*/ && secondNum.length <= 8) 
-        // {  
-        //     //Below changes the attribute value back to '.'
-        //     if(!secondNum.includes('.') && button.value === '') button.value = '.';
-        //     secondNum += button.value;
-        //     operate.displayOnScreen(secondNum)
-        //     if (secondNum.includes('.') && button.value === '.') 
-        //     {
-        //         button.value = '';
-        //     }
-        // } 
-
     });
 });
 
 
 //Operators
-operators.forEach((operation) => {
-        
+operators.forEach((operation) => 
+{
     operation.addEventListener('click', () => 
     {
-        
         if(secondNum !== '' && firstNum !== '') {
             operate[op](firstNum, secondNum); //trigger sum method
             operate.displayOnScreen(displayNum) //display sum answer
@@ -203,26 +157,13 @@ operators.forEach((operation) => {
         secondNum += firstNum;
         firstNum = '';
         if(op !== "") {
-            firstNum += secondNum; //pressing op twice
+            firstNum += secondNum; //pressing operators twice
             operate[op](firstNum, secondNum); //trigger sum method
             operate.displayOnScreen(displayNum)
         }
         op = operation.value
-        // if( secondNum !== '') {
-        //     total = operate[op](firstNum, secondNum);
-        //     operate.displayOnScreen(total);
-        // }
-
-        
-        // if (op !== '' && secondNum === '') {
-        //     secondNum += firstNum;
-        //     total = operate[op](firstNum, secondNum);
-        //     operate.displayOnScreen(total);
-        // }
-
     });
-    
-    });
+});
 
 
 //Backspace
@@ -230,7 +171,6 @@ back.addEventListener('click', operate.backspace)
 
 //Equals
 equals.addEventListener('click', operate.equalsBtn)
-
 
 //Clear
 clear.addEventListener('click', operate.allClear);

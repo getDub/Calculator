@@ -97,13 +97,13 @@ const operate =
                 
     },
 
-    divideByZero (){
-        if (op === '/' &&  secondNum[0] === "0") 
-        {
-            operate.displayOnScreen(divideByZeroError)
+    // divideByZero (){
+    //     if (op === '/' &&  firstNum[0] === "0") 
+    //     {
+    //         operate.displayOnScreen(divideByZeroError)
             
-        }
-    },
+    //     }
+    // },
 
     backspace()
     {
@@ -137,7 +137,11 @@ nums.forEach((button) => {
     
     button.addEventListener('click', () => 
     {     
-        if (firstNum === "" && button.value === "0") return //Zero can only be pressed once if no other number on screen
+        // if (op === '/' && button.value === "0") 
+        // {
+        //     operate.displayOnScreen(divideByZeroError)
+        // }
+        if (firstNum === "0" && button.value === "0") return //Zero can only be pressed once if no other number on screen
         if(firstNum.includes('.') && button.value === '.')return //Decimal can only be pressed once.
         firstNum.length < 9 ? firstNum += button.value : button.value = '';
         operate.displayOnScreen(firstNum);
